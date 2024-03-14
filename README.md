@@ -7,8 +7,8 @@ Projeto da disciplina de Infraestrutura de Comunicação (IF678) lecionada pelo 
 # Features:
 | Features                            | Done |
 |-------------------------------------|------|
-| Topologia e Comunicação entre elementos | <input type="checkbox" abled> |
-| Autoridade Certificadora            | <input type="checkbox" abled> |
-| Aplicação com UDP                   | <input type="checkbox" abled> |
-| Roteamento                          | <input type="checkbox" abled> |
+| Topologia e Comunicação entre elementos | NO |
+| Autoridade Certificadora            | NO |
+| Aplicação com UDP                   | NO |
+| Roteamento                          | NO |
 
