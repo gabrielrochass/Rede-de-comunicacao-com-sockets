@@ -1,0 +1,15 @@
+#  especifica como cada node da rede será construído
+# pra cada node -> um DockerFile
+# define características do node
+
+# imagem base
+FROM python:3.11.8 
+
+# copia os arquivos pra dentro do container
+COPY . /app
+
+# define o diretório de trabalho
+WORKDIR /app
+
+# inicia a aplicação qnd o container é iniciado
+CMD ["python", "app.py"]
