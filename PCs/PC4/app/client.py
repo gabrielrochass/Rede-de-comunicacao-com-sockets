@@ -1,0 +1,1 @@
+# se comunica com pc3, pc5 e CA
