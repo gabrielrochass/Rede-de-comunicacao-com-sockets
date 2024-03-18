@@ -21,7 +21,7 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # Definir o diretório de projeto dentro do contêiner
 
-WORKDIR /app
+WORKDIR/app
 
 #—------------------------------------
 

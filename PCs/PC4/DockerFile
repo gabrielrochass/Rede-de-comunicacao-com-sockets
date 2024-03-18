@@ -1,15 +1,49 @@
-#  especifica como cada node da rede será construído
-# pra cada node -> um DockerFile
-# define características do node
+# Imagem base do Ubuntu
 
-# imagem base
-FROM python:3.11.8 
+FROM ubuntu:latest
 
-# copia os arquivos pra dentro do container
-COPY app.py /app.py
+#—------------------------------------
 
-# define o diretório de trabalho -> mesmo arquivo
-WORKDIR /
+# Atualizando os pacotes do sistema 
 
-# inicia a aplicação qnd o container é iniciado
-CMD ["python", "app.py"]
+RUN apt-get update
+
+#instalando o Python 3 e o gerenciador de pacotes pip
+
+RUN apt-get install -y \
+    python3 \
+    python3-pip
+
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/*
+
+#—------------------------------------
+
+# Definir o diretório de projeto dentro do contêiner
+
+WORKDIR /app
+
+#—------------------------------------
+
+# Copie o arquivo requirements.txt para o diretório de trabalho
+
+COPY requirements.txt .
+
+#—------------------------------------
+
+# Instalando as dependências Python especificadas no arquivo requirements.txt
+
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+#—------------------------------------
+
+# Copiando a aplicação Python para o diretório de trabalho
+
+COPY client.py .
+
+#—------------------------------------
+
+# Executando a aplicação Python quando o contêiner for iniciado
+
+CMD ["python3", "client.py"]
+
