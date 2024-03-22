@@ -1,3 +1,4 @@
+from os import getenv
 from socket import socket, AF_INET, SOCK_STREAM
 #Passo 1: Criando o socket.
 mClientSocket = socket(AF_INET, SOCK_STREAM)
