@@ -9,7 +9,7 @@ Projeto da disciplina de Infraestrutura de Comunicação (IF678) lecionada pelo 
 
 # Links importantes:
 1. Especificação: https://drive.google.com/file/d/1w6rP-f-AnyB1EAurUk3k0Sy6SNlexrIe/view
-2. Relatório do projeto: https://docs.google.com/document/d/1J0MaCAsp0MBBz1ym7nbACbqBPxVOKdOBHdKtl3KZk7w/edit
+2. Relatório do projeto: https://docs.google.com/document/d/17ciKphrh6DRVK--xhubMjggP7cheNjcHObUEgq3bNGk/edit
    
 # Features:
 | Features                            | Done |
