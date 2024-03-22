@@ -35,16 +35,16 @@ class AutoridadeCertificadora:
 # print(f"Chave privada: {chave_privada}")
 # print(f"Chave pública: {chave_publica}")
 
-pubkey, privkey = rsa.newkeys(512)
+# pubkey, privkey = rsa.newkeys(512)
 
-# Dados a serem criptografados
-data = b'hello world'
+# # Dados a serem criptografados
+# data = b'hello world'
 
-# Criptografa os dados com a chave pública
-ciphertext = rsa.encrypt(data, chave_publica)
-print(f'Ciphertext: {ciphertext.hex()}')
+# # Criptografa os dados com a chave pública
+# ciphertext = rsa.encrypt(data, chave_publica)
+# print(f'Ciphertext: {ciphertext.hex()}')
 
-# Descriptografa os dados com a chave privada
-plaintext = rsa.decrypt(ciphertext, chave_privada)
+# # Descriptografa os dados com a chave privada
+# plaintext = rsa.decrypt(ciphertext, chave_privada)
 
-print(f'Plaintext: {plaintext.decode("utf-8")}')
+# print(f'Plaintext: {plaintext.decode("utf-8")}')

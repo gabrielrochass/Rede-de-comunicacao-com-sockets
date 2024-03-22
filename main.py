@@ -36,24 +36,21 @@ def roteamento(pc_origem, pc_destino, msg):
         pc_origem.send_encrypted(msg, pc_destino.ip, pc_destino.porta, pc_destino.id, ac)
         return
     else:
-        # printar caminho
         oposto = (pc_origem.id + 3) % 6
+        # printar caminho
         if oposto == 0:
             oposto = 6
         if pc_origem.id > oposto:
-            print(f'{pc_origem.nome} -> {vizinhos[pc_origem.nome][1].nome} -> {pc_destino.nome}')
-            roteamento(pc_origem, vizinhos[pc_origem.nome][1] , msg) 
+            # print(f'{pc_origem.nome} -> {vizinhos[pc_origem.nome][1].nome} -> {pc_destino.nome}')
+            roteamento(vizinhos[pc_origem.nome][1], pc_destino , msg) 
         else:
-            print(f'{pc_origem.nome} -> {vizinhos[pc_origem.nome][0].nome} -> {pc_destino.nome}')
-            roteamento(pc_origem, vizinhos[pc_origem.nome][0] , msg)
+            # print(f'{pc_origem.nome} -> {vizinhos[pc_origem.nome][0].nome} -> {pc_destino.nome}')
+            roteamento(vizinhos[pc_origem.nome][0], pc_destino, msg)
         
 
 pcs = [pc1, pc2, pc3, pc4, pc5, pc6]
 for pc in pcs:
     threading.Thread(target=pc.listen_encrypted).start()
 
-
-pc1.send_encrypted('Hello from PC1', pc2.ip, pc2.porta, pc2.id, ac)
-# roteamento(pc1, pc2, 'Hello from PC1') 
-# roteamento(pc3, 'PC1', 'Hello from PC3')  # Envie uma mensagem de PC3 para PC1
-
+# pc1.send_encrypted('Hello from PC1', pc2.ip, pc2.porta, pc2.id, ac)
+roteamento(pc1, pc4, 'Hello from PC1 to PC4')
