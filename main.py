@@ -14,6 +14,8 @@ pc4 = PC(nome='PC4', ip='127.0.0.4', porta=4000, id=4)
 pc5 = PC(nome='PC5', ip='127.0.0.5', porta=5000, id=5)
 pc6 = PC(nome='PC6', ip='127.0.0.6', porta=6000, id=6)
 
+pcs = [pc1, pc2, pc3, pc4, pc5, pc6]
+
 vizinhos = {
     'PC1': [pc2, pc6],
     'PC2': [pc1, pc3],
@@ -24,16 +26,15 @@ vizinhos = {
 }
 
 # gerar as chaves publicas e privadas com ca
-pc1.set_key(ac.registrar(pc1.id))
-pc2.set_key(ac.registrar(pc2.id))
-pc3.set_key(ac.registrar(pc3.id))
-pc4.set_key(ac.registrar(pc4.id))
-pc5.set_key(ac.registrar(pc5.id))
-pc6.set_key(ac.registrar(pc6.id))
+for j in pcs:
+    j.set_key(ac.registrar(j.id))
 
-def roteamento(pc_origem, pc_destino, msg):
-    if pc_destino in vizinhos[pc_origem.nome]: 
+def roteamento(pc_origem, pc_destino, msg, inicio):
+    if pc_destino in vizinhos[pc_origem.nome] and not inicio: 
         pc_origem.send_encrypted(msg, pc_destino.ip, pc_destino.porta, pc_destino.id, ac)
+        return
+    elif pc_destino in vizinhos[pc_origem.nome] and not inicio: 
+        pc_origem.send(msg, pc_destino.ip, pc_destino.porta)
         return
     else:
         path = {
@@ -46,13 +47,16 @@ def roteamento(pc_origem, pc_destino, msg):
         }
         pc_atual = path[pc_origem.id]
         i = pc_destino.id - 1
-        pc_origem.send_encrypted(msg, pc_atual[i].ip, pc_atual[i].porta, pc_atual[i].id, ac)
-        roteamento(pc_atual[i], pc_destino, msg)
+        if (inicio):
+            pc_origem.send_encrypted(msg, pc_atual[i].ip, pc_atual[i].porta, pc_destino.id, ac)
+            inicio = False
+        else:
+            pc_origem.send_encrypted(msg, pc_atual[i].ip, pc_atual[i].porta, pc_destino.id, ac)  # Change this line to use send_encrypted instead of send
+        roteamento(pc_atual[i], pc_destino, msg, False)
         
 
-pcs = [pc1, pc2, pc3, pc4, pc5, pc6]
 for pc in pcs:
     threading.Thread(target=pc.listen_encrypted).start()
 
 # pc1.send_encrypted('Hello from PC1', pc2.ip, pc2.porta, pc2.id, ac)
-roteamento(pc1, pc4, 'Hello from PC1 to PC4')
+roteamento(pc1, pc4, 'Hello from PC1 to PC4', True)

@@ -15,6 +15,12 @@ class PC:
         self.key = key
         return self.key
     
+    def send(self, msg, ip, porta):
+        con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        con.connect((ip, porta))
+        con.send(msg.encode())
+        con.close()
+    
     def send_encrypted(self, msg, ip, porta, id, ca):
         con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         chave_publica_dest = ca.consultar_chave_publica(id)
@@ -32,8 +38,14 @@ class PC:
         while True:
             con, _ = self.socket.accept()
             msg = con.recv(2048)
-            decrypted_msg = rsa.decrypt(msg, self.key)
-            print(f'{self.nome} recebeu: {decrypted_msg.decode()}')
-            con.close()
+            try:
+                decrypted_msg = rsa.decrypt(msg, self.key)
+                print(f'{self.nome} recebeu: {decrypted_msg.decode()}')
+            except Exception as e:
+                print(f'{self.nome} recebeu um erro ao descriptografar mensagem: {e}')   
+            finally:
+                con.close()
 
+    def encriptar(self, msg, chave_publica):
+        return rsa.encrypt(msg.encode(), chave_publica)
         
