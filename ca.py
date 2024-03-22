@@ -1,6 +1,6 @@
-# endereços e portas de comunicação entre cliente e servidor.
-# O endereço IP é um número que identifica um dispositivo na rede.
-# A porta é um número que identifica um serviço que está rodando em um dispositivo.
+# pra que serve a autoridade certificadora?
+# importando diff hellman
+import cryptography.hazmat.primitives.asymmetric.x25519 as x25519
 
 # criando um dicionario para armazenar os endereços e portas de comunicação entre cliente e servidor.
 info = {
