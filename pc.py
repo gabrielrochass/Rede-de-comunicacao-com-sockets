@@ -1,8 +1,6 @@
 # classe de pc pra impotar main
-# classe de pc pra impotar main
 import socket
-import threading
-import rsa
+import rsa #dar um pip install rsa caso não previamente instalado
 
 class PC:
     def __init__(self, nome, ip, porta, id):

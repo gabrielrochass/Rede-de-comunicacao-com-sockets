@@ -29,12 +29,9 @@ vizinhos = {
 for j in pcs:
     j.set_key(ac.registrar(j.id))
 
-def roteamento(pc_origem, pc_destino, msg, inicio):
-    if pc_destino in vizinhos[pc_origem.nome] and not inicio: 
+def roteamento(pc_origem, pc_destino, msg):
+    if pc_destino in vizinhos[pc_origem.nome]: 
         pc_origem.send_encrypted(msg, pc_destino.ip, pc_destino.porta, pc_destino.id, ac)
-        return
-    elif pc_destino in vizinhos[pc_origem.nome] and not inicio: 
-        pc_origem.send(msg, pc_destino.ip, pc_destino.porta)
         return
     else:
         path = {
@@ -47,16 +44,16 @@ def roteamento(pc_origem, pc_destino, msg, inicio):
         }
         pc_atual = path[pc_origem.id]
         i = pc_destino.id - 1
-        if (inicio):
-            pc_origem.send_encrypted(msg, pc_atual[i].ip, pc_atual[i].porta, pc_destino.id, ac)
-            inicio = False
-        else:
-            pc_origem.send_encrypted(msg, pc_atual[i].ip, pc_atual[i].porta, pc_destino.id, ac)  # Change this line to use send_encrypted instead of send
-        roteamento(pc_atual[i], pc_destino, msg, False)
+        pc_origem.send_encrypted(msg, pc_atual[i].ip, pc_atual[i].porta, pc_destino.id, ac)
+        roteamento(pc_atual[i], pc_destino, msg)
         
 
 for pc in pcs:
     threading.Thread(target=pc.listen_encrypted).start()
 
 # pc1.send_encrypted('Hello from PC1', pc2.ip, pc2.porta, pc2.id, ac)
-roteamento(pc1, pc4, 'Hello from PC1 to PC4', True)
+roteamento(pc1, pc4, 'Hello from PC1 to PC4')
+roteamento(pc1, pc6, 'Hello from PC1 to PC6')
+roteamento(pc2, pc1, 'Hello from PC2 to PC1')
+roteamento(pc3, pc5, 'Hello from PC3 to PC5')
+roteamento(pc4, pc1, 'Hello from PC4 to PC1')
