@@ -21,7 +21,7 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # Definir o diretório de projeto dentro do contêiner
 
-WORKDIR/app
+WORKDIR /app
 
 #—------------------------------------
 
@@ -45,5 +45,6 @@ COPY client.py .
 
 # Executando a aplicação Python quando o contêiner for iniciado
 
-CMD ["python3", "client.py"]
+ENTRYPOINT \bin\sh 
+
 
