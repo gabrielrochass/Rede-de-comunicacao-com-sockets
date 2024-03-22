@@ -36,16 +36,18 @@ def roteamento(pc_origem, pc_destino, msg):
         pc_origem.send_encrypted(msg, pc_destino.ip, pc_destino.porta, pc_destino.id, ac)
         return
     else:
-        oposto = (pc_origem.id + 3) % 6
-        # printar caminho
-        if oposto == 0:
-            oposto = 6
-        if pc_origem.id > oposto:
-            # print(f'{pc_origem.nome} -> {vizinhos[pc_origem.nome][1].nome} -> {pc_destino.nome}')
-            roteamento(vizinhos[pc_origem.nome][1], pc_destino , msg) 
-        else:
-            # print(f'{pc_origem.nome} -> {vizinhos[pc_origem.nome][0].nome} -> {pc_destino.nome}')
-            roteamento(vizinhos[pc_origem.nome][0], pc_destino, msg)
+        path = {
+            1: [pc1,pc2,pc2,pc2,pc6,pc6], 
+            2: [pc1,pc2,pc3,pc3,pc3,pc1],
+            3: [pc2,pc2,pc3,pc4,pc4,pc4],
+            4: [pc3,pc3,pc3,pc4,pc5,pc5],
+            5: [pc6,pc4,pc4,pc4,pc5,pc6],
+            6: [pc1,pc1,pc5,pc5,pc5,pc6]
+        }
+        pc_atual = path[pc_origem.id]
+        i = pc_destino.id - 1
+        pc_origem.send_encrypted(msg, pc_atual[i].ip, pc_atual[i].porta, pc_atual[i].id, ac)
+        roteamento(pc_atual[i], pc_destino, msg)
         
 
 pcs = [pc1, pc2, pc3, pc4, pc5, pc6]
