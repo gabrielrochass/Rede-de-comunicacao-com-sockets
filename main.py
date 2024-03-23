@@ -51,11 +51,11 @@ for pc in pcs:
     threading.Thread(target=pc.listen_encrypted).start()
 
 
-router.rota(pc1, pc2, 'Hello from PC1 to PC4')
-router.rota(pc1, pc3, 'Hello from PC1 to PC6')
-router.rota(pc1, pc4, 'Hello from PC2 to PC1')
-router.rota(pc1, pc5, 'Hello from PC3 to PC5')
-router.rota(pc1, pc6, 'Hello from PC4 to PC1')
+router.rota(pc1, pc2, 'Hello from PC1 to PC2')
+router.rota(pc1, pc3, 'Hello from PC1 to PC3')
+router.rota(pc1, pc4, 'Hello from PC1 to PC4')
+router.rota(pc1, pc5, 'Hello from PC1 to PC5')
+router.rota(pc1, pc6, 'Hello from PC1 to PC6')
 
 broadcast(pc1, pcs)
 
