@@ -63,7 +63,7 @@ broadcast(pc1, pcs)
 for pc_origem in pcs:
     for pc_destino in pcs:
         if pc_destino != pc_origem:
-            router.rota(pc_origem, pc_destino, f'Hello from {pc1.nome} to {pc_destino.nome}')
+            router.rota(pc_origem, pc_destino, f'Hello from {pc_origem.nome} to {pc_destino.nome}')
     broadcast(pc_origem, pcs)
 
 
